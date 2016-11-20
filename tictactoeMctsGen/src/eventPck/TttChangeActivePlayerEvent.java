@@ -1,5 +1,5 @@
 package eventPck;
 
-public class TttChangeActivePlayerEvent extends TttEvent {
+public class TttChangeActivePlayerEvent implements TttEvent {
 
 }

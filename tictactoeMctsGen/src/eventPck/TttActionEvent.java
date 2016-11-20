@@ -1,6 +1,9 @@
 package eventPck;
 
-public class TttActionEvent extends TttEvent {
+import tictactoeMain.TttGame;
+import abstractDefinitions.AbstractAction;
+
+public class TttActionEvent extends AbstractAction<TttGame> implements TttEvent {
 
 	private int targetX;
 	private int targetY;
@@ -16,6 +19,11 @@ public class TttActionEvent extends TttEvent {
 	}
 	public int getTargetX() {
 		return targetX;
+	}
+
+	@Override
+	public String toString() {
+		return "TttActionEvent [targetX=" + targetX + ", targetY=" + targetY + "]";
 	}
 
 }

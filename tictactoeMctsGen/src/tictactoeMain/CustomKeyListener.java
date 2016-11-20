@@ -3,6 +3,11 @@ package tictactoeMain;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import mctsTTTimplementation.TttNodeGenerator;
+import mctsTTTimplementation.TttRules;
+import variusTests.Logger;
+import abstractDefinitions.TreeNode;
+import abstractSearchComponents.MCTSperformer;
 import eventPck.TttActionEvent;
 import eventPck.TttChangeActivePlayerEvent;
 
@@ -10,10 +15,13 @@ public class CustomKeyListener implements KeyListener {
 
 	private TttGame game;
 	private TttLogic logic;
+	private MCTSperformer<TttGame, TttActionEvent> mctsPerformer;
 
 	public CustomKeyListener(TttGame game, TttLogic logic) {
 		this.game = game;
 		this.logic = logic;
+		this.mctsPerformer = new MCTSperformer<TttGame, TttActionEvent>(new TttRules(logic),
+				new TttNodeGenerator(logic));
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -64,6 +72,18 @@ public class CustomKeyListener implements KeyListener {
 			logic.changeActivePlayer(new TttChangeActivePlayerEvent(), game);
 
 		}
+		if (e.getKeyCode() == KeyEvent.VK_INSERT) {
+			TreeNode<TttGame, TttActionEvent> rootNode = new TreeNode<TttGame, TttActionEvent>(game);
+
+			int playerSymbol = rootNode.getState().getActiveTttPlayer().getSymbolPlaying();
+			Logger.println("player symbol at root : " + playerSymbol + " X " + game.getPlayerX().getSymbolPlaying()
+					+ " O " + game.getPlayerO().getSymbolPlaying());
+
+			TttActionEvent chosenMove = (TttActionEvent) mctsPerformer.runMCTS(rootNode).getAction();
+			moveProcess(chosenMove);
+
+		}
+
 	}
 
 	private void moveProcess(int yTarget, int xTarget) {
@@ -74,12 +94,19 @@ public class CustomKeyListener implements KeyListener {
 		logic.checkForWinner(game);
 	}
 
+	private void moveProcess(TttActionEvent event) {
+		logic.processEvent(event, game);
+		System.out.println();
+		print2DArray(game.getBoard().getBoard());
+		System.out.println();
+		logic.checkForWinner(game);
+	}
 	// need for no exceptions
 	public void keyReleased(KeyEvent e) {
 
 	}
 
-	private void print2DArray(int[][] array2D) {
+	public static void print2DArray(int[][] array2D) {
 
 		for (int i = 0; i < array2D.length; i++) {
 			System.out.println();

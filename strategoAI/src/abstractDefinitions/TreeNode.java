@@ -5,9 +5,9 @@ import java.util.List;
 
 public class TreeNode<State extends SearchState, Action extends AbstractAction<State>> {
 
-	private SearchState state;
+	private State state;
 
-	private AbstractAction action;
+	private Action action;
 
 	private ArrayList<TreeNode<State, Action>> childrenList;
 
@@ -16,12 +16,16 @@ public class TreeNode<State extends SearchState, Action extends AbstractAction<S
 	/** Value of the Node */
 	// private double valueOfNode;
 
-	private int gamesPlayed;
-	private int gamesWon;
+	private int gamesPlayed = 0;
+	private int gamesWon = 0;
 
-	public TreeNode(SearchState rootState) {
+	private TreeNode<State, Action> parentNode;
 
-		this.state = rootState;
+	private boolean isPlaythoughNode;
+
+	public TreeNode(State rootState) {
+		childrenList = new ArrayList<TreeNode<State, Action>>();
+		this.setState(rootState);
 	}
 
 	public ArrayList<TreeNode<State, Action>> getChildrenList() {
@@ -46,6 +50,57 @@ public class TreeNode<State extends SearchState, Action extends AbstractAction<S
 
 	public void setGamesWon(int gamesWon) {
 		this.gamesWon = gamesWon;
+	}
+
+	public int getNodeDepth() {
+		return nodeDepth;
+	}
+
+	public void setNodeDepth(int nodeDepth) {
+		this.nodeDepth = nodeDepth;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public AbstractAction<State> getAction() {
+		return action;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
+	}
+
+	public TreeNode<State, Action> getParent() {
+
+		return parentNode;
+	}
+
+	public void setParent(TreeNode<State, Action> aNode) {
+		this.parentNode = aNode;
+
+	}
+
+	public TreeNode<State, Action> getRootNode() {
+		TreeNode<State, Action> tempNode = this;
+		while (tempNode.getParent() != null)
+			tempNode = tempNode.getParent();
+
+		return tempNode;
+	}
+
+	// TODO Debug, remove
+	public boolean isPlaythoughNode() {
+		return isPlaythoughNode;
+	}
+
+	public void setPlaythoughNode(boolean isPlaythoughNode) {
+		this.isPlaythoughNode = isPlaythoughNode;
 	}
 
 }

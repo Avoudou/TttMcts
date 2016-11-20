@@ -9,8 +9,15 @@ public class TttLogic {
 	public void processEvent(TttEvent anEvent, TttGame game) {
 		if (anEvent.getClass() == TttActionEvent.class) {
 			applyAction((TttActionEvent) anEvent, game);
-			checkForWinner(game);
-			// changeActivePlayer(new TttChangeActivePlayerEvent(), game);
+			// checkForWinner(game);
+
+			// Logger.println("Active player  is now Player " + game.getActivePlayer().getSymbolPlaying());
+			// Logger.out.println();
+			int activePlayer = game.getActivePlayer();
+			changeActivePlayer(new TttChangeActivePlayerEvent(), game);
+			if (game.getActivePlayer() == activePlayer) {
+				Logger.println("AP not changed");
+			}
 		}
 
 	}
@@ -35,16 +42,16 @@ public class TttLogic {
 		if (!checkIfValidAction(event, game)) {
 			return;
 		}
-		game.getBoard().getBoard()[event.getTargetY()][event.getTargetX()] = game.getActivePlayer().getSymbolPlaying();
+		game.getBoard().getBoard()[event.getTargetY()][event.getTargetX()] = game.getActiveTttPlayer().getSymbolPlaying();
 
 	}
 
-	private boolean checkWinForPlayerSynbol(TttGame game, int tempRefereanceCheck) {
+	public boolean checkWinForPlayerSynbol(TttGame game, int tempRefereanceCheck) {
 		for (int i = 0; i < game.getBoard().getBoard().length; i++) {
 			if (game.getBoard().getBoard()[i][0] == tempRefereanceCheck
 					&& game.getBoard().getBoard()[i][1] == tempRefereanceCheck
 					&& game.getBoard().getBoard()[i][2] == tempRefereanceCheck) {
-				System.out.println("player " + tempRefereanceCheck + " wins");
+				// System.out.println("player " + tempRefereanceCheck + " wins");
 				return true;
 					
 				}
@@ -54,7 +61,7 @@ public class TttLogic {
 			if (game.getBoard().getBoard()[0][i] == tempRefereanceCheck
 					&& game.getBoard().getBoard()[1][i] == tempRefereanceCheck
 					&& game.getBoard().getBoard()[2][i] == tempRefereanceCheck) {
-				System.out.println("player " + tempRefereanceCheck + " wins");
+				// System.out.println("player " + tempRefereanceCheck + " wins");
 				return true;
 
 			}
@@ -62,21 +69,21 @@ public class TttLogic {
 		}
 		
 		if(game.getBoard().getBoard()[0][0]==tempRefereanceCheck && game.getBoard().getBoard()[1][1]==tempRefereanceCheck && game.getBoard().getBoard()[2][2]==tempRefereanceCheck ){
-			System.out.println("player " + tempRefereanceCheck + " wins");
+			// System.out.println("player " + tempRefereanceCheck + " wins");
 			return true;
 
 		}
 		if (game.getBoard().getBoard()[0][2] == tempRefereanceCheck
 				&& game.getBoard().getBoard()[1][1] == tempRefereanceCheck
 				&& game.getBoard().getBoard()[2][0] == tempRefereanceCheck) {
-			System.out.println("player " + tempRefereanceCheck + " wins");
+			// System.out.println("player " + tempRefereanceCheck + " wins");
 			return true;
 
 		}
 		return false;
 	}
 
-	private boolean checkIfValidAction(TttActionEvent event, TttGame game) {
+	public boolean checkIfValidAction(TttActionEvent event, TttGame game) {
 		if (event.getTargetX() > 2 || event.getTargetX() < 0) {
 			return false;
 		}
@@ -94,13 +101,14 @@ public class TttLogic {
 	}
 
 	public void changeActivePlayer(TttChangeActivePlayerEvent event, TttGame game) {
-		if (game.getActivePlayer() == game.getPlayerO()) {
+		if (game.getActiveTttPlayer().getSymbolPlaying() == game.getPlayerO().getSymbolPlaying()) {
 			game.setActivePlayer(game.getPlayerX());
+			// Logger.println("Active player  is now Player " + game.getActivePlayer().getSymbolPlaying());
 		} else {
 			game.setActivePlayer(game.getPlayerO());
+			// Logger.println("Active player  is now Player " + game.getActivePlayer().getSymbolPlaying());
 		}
-		System.out.println();
-		System.out.println("Active player  is now Player " + game.getActivePlayer().getSymbolPlaying());
+
 
 
 	}

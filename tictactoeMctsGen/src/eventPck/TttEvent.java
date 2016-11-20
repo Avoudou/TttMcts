@@ -1,5 +1,5 @@
 package eventPck;
 
-public abstract class TttEvent {
+public interface TttEvent {
 
 }

@@ -86,7 +86,11 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 	}
 
 	private void singleNodeUpdate(TreeNode<State, Action> visitNode, int leafPlaythroughResult) {
-		 int  effectiveResult= leafPlaythroughResult+1;
+		// TODO Untested
+		if (visitNode.getNodeDepth() % 2 == 0) {
+			leafPlaythroughResult *= -1;
+		}
+		int effectiveResult = leafPlaythroughResult + 1;
 		visitNode.setGamesPlayed(visitNode.getGamesPlayed() + 2);
 		
 

@@ -64,4 +64,41 @@ public class TttRules extends Rules<TttGame> {
 
 	}
 
+	@Override
+	public boolean isTerminal(TttGame aState) {
+		int[][] board = aState.getBoard().getBoard();
+
+		if (logic.checkForWinner(aState)) {
+			return true;
+
+		}
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j] == 0) {
+					return false;
+				}
+
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public int getScoreValue(TttGame state, int referance) {
+		int playerSymbol = referance;
+
+		if (logic.checkWinForPlayerSynbol(state, playerSymbol)) {
+
+			return 1;
+		}
+		if (logic.checkWinForPlayerSynbol(state, state.getOpponentPlayer().getSymbolPlaying())) {
+			Logger.println("-1 playthrough result");
+			return -1;
+		}
+		return 0;
+
+	}
+
 }

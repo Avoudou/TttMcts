@@ -5,7 +5,7 @@ import mctsTTTimplementation.TttRules;
 import tictactoeMain.TttGame;
 import tictactoeMain.TttLogic;
 import abstractDefinitions.TreeNode;
-import abstractSearchComponents.NodeGenerator;
+import abstractSearchComponents.MoveGenerator;
 import abstractSearchComponents.Playthrough;
 import abstractSearchComponents.Selection;
 import eventPck.TttActionEvent;
@@ -18,7 +18,7 @@ public class RulesTest {
 		Selection<TttGame, TttActionEvent> selection = new Selection<TttGame, TttActionEvent>();
 		TreeNode<TttGame, TttActionEvent> root = new TreeNode<TttGame, TttActionEvent>(game);
 		TttLogic logic = new TttLogic();
-		NodeGenerator<TttGame, TttActionEvent> generator = new TttNodeGenerator(logic);
+		MoveGenerator<TttGame, TttActionEvent> generator = new TttNodeGenerator(logic);
 		TttRules rules = new TttRules(logic);
 		// logic.changeActivePlayer(new TttChangeActivePlayerEvent(), game);
 		logic.processEvent(new TttActionEvent(0, 1), game);

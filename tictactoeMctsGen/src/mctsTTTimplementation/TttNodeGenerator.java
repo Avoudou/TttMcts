@@ -2,14 +2,12 @@ package mctsTTTimplementation;
 
 import java.util.ArrayList;
 
-import tictactoeMain.Logger;
 import tictactoeMain.TttGame;
 import tictactoeMain.TttLogic;
-import abstractDefinitions.TreeNode;
-import abstractSearchComponents.NodeGenerator;
+import abstractSearchComponents.MoveGenerator;
 import eventPck.TttActionEvent;
 
-public class TttNodeGenerator extends NodeGenerator<TttGame, TttActionEvent> {
+public class TttNodeGenerator extends MoveGenerator<TttGame, TttActionEvent> {
 
 	private TttLogic logic;
 
@@ -18,11 +16,8 @@ public class TttNodeGenerator extends NodeGenerator<TttGame, TttActionEvent> {
 	}
 
 	@Override
-	public ArrayList<TreeNode<TttGame, TttActionEvent>> generateAvailiableMoves(TreeNode<TttGame, TttActionEvent> aNode) {
-		TttGame game = (TttGame) aNode.getState();
-
-		ArrayList<TreeNode<TttGame, TttActionEvent>> returnNodesList = new ArrayList<TreeNode<TttGame, TttActionEvent>>();
-
+	public ArrayList<TttActionEvent> generateAvailiableMoves(TttGame aState) {
+		TttGame game = aState;
 		int[][] board = game.getBoard().getBoard();
 
 		ArrayList<TttActionEvent> availiableActions = new ArrayList<TttActionEvent>();
@@ -36,28 +31,33 @@ public class TttNodeGenerator extends NodeGenerator<TttGame, TttActionEvent> {
 			}
 		}
 
-		for (int i = 0; i < availiableActions.size(); i++) {
-			TttGame newState = game.deepCopySelf();
-			if (newState.getBoard().getBoard() == game.getBoard().getBoard()) {
-				Logger.println("VERY VERY bad");
-			}
-			logic.processEvent(availiableActions.get(i), newState);
-			if (newState.getActivePlayer() == game.getActivePlayer()) {
-				Logger.println("Deep problems");
-			}
-			// logic.processEvent(new TttChangeActivePlayerEvent(), newState);
-			TreeNode<TttGame, TttActionEvent> newNode = new TreeNode<TttGame, TttActionEvent>(newState);
-			newNode.setParent(aNode);
-			aNode.getChildrenList().add(newNode);
-			newNode.setNodeDepth(aNode.getNodeDepth() + 1);
-			newNode.setAction(availiableActions.get(i));
-			newNode.setPlaythoughNode(aNode.isPlaythoughNode());
-			returnNodesList.add(newNode);
+//		for (int i = 0; i < availiableActions.size(); i++) {
+//			TttGame newState = game.deepCopySelf();
+//			if (newState.getBoard().getBoard() == game.getBoard().getBoard()) {
+//				Logger.println("VERY VERY bad");
+//			}
+//			logic.processEvent(availiableActions.get(i), newState);
+//			if (newState.getActivePlayer() == game.getActivePlayer()) {
+//				Logger.println("Deep problems");
+//			}
+//			// logic.processEvent(new TttChangeActivePlayerEvent(), newState);
+//			TreeNode<TttGame, TttActionEvent> newNode = new TreeNode<TttGame, TttActionEvent>(newState);
+//			newNode.setParent(aNode);
+//			aNode.getChildrenList().add(newNode);
+//			newNode.setNodeDepth(aNode.getNodeDepth() + 1);
+		// newNode.setAction(availiableActions.get(i));/
+//			newNode.setPlaythoughNode(aNode.isPlaythoughNode());
+//			returnNodesList.add(newNode);
 
-		}
+//		}
 		// Logger.println(" child nodes generated");
-		return returnNodesList;
+		return availiableActions;
 	}
 
+	@Override
+	public void applyAction(TttGame state, TttActionEvent action) {
+
+		logic.processEvent(action, state);
+	}
 
 }

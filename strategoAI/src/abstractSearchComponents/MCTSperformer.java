@@ -13,10 +13,10 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 	private Selection<State, Action> selection;
 
 	private Rules<State> rules;
-	private NodeGenerator<State, Action> moveGenerator;
+	private MoveGenerator<State, Action> moveGenerator;
 	private final int noOfItterations = 1000;
 
-	public MCTSperformer(Rules<State> rules, NodeGenerator<State, Action> moveGenerator) {
+	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
 		this.moveGenerator = moveGenerator;
 		this.playthrough = new Playthrough<State, Action>(moveGenerator, rules);
@@ -59,9 +59,9 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 			return;
 		}
-		ArrayList<TreeNode<State, Action>> moves = moveGenerator.generateAvailiableMoves(visititedNode);
+		ArrayList<Action> moves = moveGenerator.generateAvailiableMoves(visititedNode.getState());
 
-		visititedNode.setChildrenList(moves);
+		addChildNodes(visititedNode, moves);
 		visititedNode = selection.selectChild(visititedNode);
 		int result = playthrough.returnPlaythroughResult(visititedNode);
 		// Logger.println("playthrough result: " + result);
@@ -86,7 +86,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 	}
 
 	private void singleNodeUpdate(TreeNode<State, Action> visitNode, int leafPlaythroughResult) {
-		// TODO Untested
+
 		if (visitNode.getNodeDepth() % 2 == 0) {
 			leafPlaythroughResult *= -1;
 		}
@@ -133,6 +133,22 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		
 		// Logger.println(""+tempBestChild.getGamesWon());
 		return tempBestChild;
+	}
+
+	private void addChildNodes(TreeNode<State, Action> aNode, ArrayList<Action> moves) {
+
+		for (int i = 0; i < moves.size(); i++) {
+			@SuppressWarnings("unchecked")
+			State newState = (State) aNode.getState().deepCopySelf();
+			moveGenerator.applyAction(newState, moves.get(i));
+			TreeNode<State, Action> newNode = new TreeNode<State, Action>(newState);
+			newNode.setParent(aNode);
+			aNode.getChildrenList().add(newNode);
+			newNode.setNodeDepth(aNode.getNodeDepth() + 1);
+			newNode.setAction(moves.get(i));
+			// newNode.setPlaythoughNode(aNode.isPlaythoughNode());
+
+	}
 	}
 
 }

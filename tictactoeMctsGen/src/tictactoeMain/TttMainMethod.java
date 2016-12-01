@@ -1,7 +1,5 @@
 package tictactoeMain;
 
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -30,8 +28,8 @@ public class TttMainMethod {
 		TreeNode<TttGame, TttActionEvent> aNode = new TreeNode<TttGame, TttActionEvent>(game);
 		System.out.println(rules.isTerminal(aNode));
 		TttNodeGenerator generator = new TttNodeGenerator(logic);
-		ArrayList<TreeNode<TttGame, TttActionEvent>> childsList = generator.generateAvailiableMoves(aNode);
-		System.out.println(childsList.size());
+		// ArrayList<TreeNode<TttGame, TttActionEvent>> childsList = generator.generateAvailiableMoves(aNode);
+		// System.out.println(childsList.size());
 		JFrame window = new JFrame();
 
 		window.setSize(100, 100);

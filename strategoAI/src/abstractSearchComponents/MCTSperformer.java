@@ -9,12 +9,12 @@ import abstractDefinitions.TreeNode;
 
 public class MCTSperformer<State extends SearchState, Action extends AbstractAction<State>> {
 
-	private Playthrough<State, Action> playthrough;
-	private Selection<State, Action> selection;
+	protected Playthrough<State, Action> playthrough;
+	protected Selection<State, Action> selection;
 
-	private Rules<State> rules;
-	private MoveGenerator<State, Action> moveGenerator;
-	private final int noOfItterations = 1000;
+	protected Rules<State> rules;
+	protected MoveGenerator<State, Action> moveGenerator;
+	protected final int noOfItterations = 4000;
 
 	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
@@ -24,13 +24,22 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	}
 
+	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator, Playthrough<State, Action> playthrough) {
+		this.rules = rules;
+		this.moveGenerator = moveGenerator;
+		this.playthrough = playthrough;
+		this.selection = new Selection<State, Action>();
+
+	}
+
+
 	public TreeNode<State, Action> runMCTS(TreeNode<State, Action> rootNode) {
 
 		for (int i = 0; i < noOfItterations; i++) {
 
 			mctsItteration(rootNode);
 
-			// Logger.println("number of  Tottal itterations  : " + i);
+			Logger.println("number of  Tottal itterations  : " + i);
 		}
 		// Logger.println("" + rootNode.getGamesPlayed());
 
@@ -40,7 +49,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	}
 
-	private void mctsItteration(TreeNode<State, Action> rootNode) {
+	public void mctsItteration(TreeNode<State, Action> rootNode) {
 		// Logger.println("start mcts itterattion  (Root  times played): " + rootNode.getGamesPlayed());
 		TreeNode<State, Action> visititedNode = rootNode;
 
@@ -70,12 +79,12 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	}
 
-	private boolean checkIfLeafNode(TreeNode<State, Action> aNode) {
+	protected boolean checkIfLeafNode(TreeNode<State, Action> aNode) {
 		// System.out.println("size " + aNode.getChildrenList().size());
 		return aNode.getChildrenList().size() == 0;
 	}
 
-	private void updateTree(TreeNode<State, Action> visitNode, int result) {
+	protected void updateTree(TreeNode<State, Action> visitNode, int result) {
 		TreeNode<State, Action> tempNode = visitNode;
 		singleNodeUpdate(visitNode, result);
 		while (tempNode.getParent() != null) {
@@ -85,7 +94,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		}
 	}
 
-	private void singleNodeUpdate(TreeNode<State, Action> visitNode, int leafPlaythroughResult) {
+	protected void singleNodeUpdate(TreeNode<State, Action> visitNode, int leafPlaythroughResult) {
 
 		if (visitNode.getNodeDepth() % 2 == 0) {
 			leafPlaythroughResult *= -1;
@@ -99,7 +108,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		
 	}
 
-	private TreeNode<State, Action> getBestChild(TreeNode<State, Action> aNode) {
+	protected TreeNode<State, Action> getBestChild(TreeNode<State, Action> aNode) {
 
 		Logger.println(aNode.getState().toString());
 		ArrayList<TreeNode<State, Action>> childNodes = aNode.getChildrenList();
@@ -135,7 +144,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		return tempBestChild;
 	}
 
-	private void addChildNodes(TreeNode<State, Action> aNode, ArrayList<Action> moves) {
+	public void addChildNodes(TreeNode<State, Action> aNode, ArrayList<Action> moves) {
 
 		for (int i = 0; i < moves.size(); i++) {
 			@SuppressWarnings("unchecked")
@@ -150,5 +159,6 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	}
 	}
+
 
 }

@@ -20,8 +20,9 @@ public class Playthrough<State extends SearchState, Action extends AbstractActio
 
 	public int returnPlaythroughResult(TreeNode<State, Action> leafNode) {
 		@SuppressWarnings("unchecked")
+
 		State state = (State) leafNode.getState().deepCopySelf();
-		
+
 		// tempNode.setPlaythoughNode(true);
 		
 		TreeNode<State, Action> rootNode = leafNode.getRootNode();

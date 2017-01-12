@@ -39,7 +39,7 @@ public class Selection<State extends SearchState, Action extends AbstractAction<
 			TreeNode<State, Action> examinedNode = childrenList.get(i);
 
 			double selectionValue = 1.0 * examinedNode.getGamesWon() / examinedNode.getGamesPlayed() + Math.sqrt(2)
-						* (Math.sqrt(Math.log(tottalWins) / examinedNode.getGamesPlayed()));
+					* (Math.sqrt(Math.log(aNode.getGamesPlayed()) / examinedNode.getGamesPlayed()));
 
 				if (selectionValue == Math.max(selectionValue, selectionReferance)) {
 					selectionReferance = selectionValue;

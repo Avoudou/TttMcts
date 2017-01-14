@@ -14,7 +14,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	protected Rules<State> rules;
 	protected MoveGenerator<State, Action> moveGenerator;
-	protected final int noOfItterations = 4000;
+	protected final int noOfItterations = 5000;
 
 	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
@@ -39,7 +39,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 			mctsItteration(rootNode);
 
-			Logger.println("number of  Tottal itterations  : " + i);
+      Logger.println("number of  Tottal itterations  : " + (i + 1));
 		}
 		// Logger.println("" + rootNode.getGamesPlayed());
 
@@ -53,7 +53,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		// Logger.println("start mcts itterattion  (Root  times played): " + rootNode.getGamesPlayed());
 		TreeNode<State, Action> visititedNode = rootNode;
 
-		while (!checkIfLeafNode(visititedNode)) {
+    while (!checkIfLeafNode(visititedNode) && !rules.isTerminal(visititedNode.getState())) {
 			visititedNode = selection.selectChild(visititedNode);
 			// Logger.println("searching for child node depth  :" + visititedNode.getNodeDepth());
 		}
@@ -80,8 +80,8 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 	}
 
 	protected boolean checkIfLeafNode(TreeNode<State, Action> aNode) {
-		// System.out.println("size " + aNode.getChildrenList().size());
-		return aNode.getChildrenList().size() == 0;
+    // return aNode.getChildrenList().size() == 0;
+    return aNode.getGamesPlayed() == 0;
 	}
 
 	protected void updateTree(TreeNode<State, Action> visitNode, int result) {

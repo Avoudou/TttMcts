@@ -86,7 +86,7 @@ public class TttRules extends Rules<TttGame> {
 	}
 
 	@Override
-	public int getScoreValue(TttGame state, int referance) {
+	public double getScoreValue(TttGame state, int referance) {
 		int playerSymbol = referance;
 
 		if (logic.checkWinForPlayerSynbol(state, playerSymbol)) {

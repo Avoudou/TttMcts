@@ -39,7 +39,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 			mctsItteration(rootNode);
 
-      Logger.println("number of  Tottal itterations  : " + (i + 1));
+			// Logger.println("number of  Tottal itterations  : " + (i + 1));
 		}
 		// Logger.println("" + rootNode.getGamesPlayed());
 
@@ -53,16 +53,20 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		// Logger.println("start mcts itterattion  (Root  times played): " + rootNode.getGamesPlayed());
 		TreeNode<State, Action> visititedNode = rootNode;
 
-    while (!checkIfLeafNode(visititedNode) && !rules.isTerminal(visititedNode.getState())) {
-			visititedNode = selection.selectChild(visititedNode);
-			// Logger.println("searching for child node depth  :" + visititedNode.getNodeDepth());
+		while (visititedNode != null && !checkIfLeafNode(visititedNode) && !rules.isTerminal(visititedNode.getState())) {
+			TreeNode<State, Action> selectChild = selection.selectChild(visititedNode);
+			if (selectChild == null) {
+				break;
+			} else {
+				visititedNode = selectChild;
+			}
 		}
 
 		// Logger.println("Leaf node #of available moves  : " + moves.size());
 		if (rules.isTerminal(visititedNode)) {
 			// System.out.println("terminal node");
 
-			int result = playthrough.returnPlaythroughResult(visititedNode);
+			double result = playthrough.returnPlaythroughResult(visititedNode);
 
 			updateTree(visititedNode, result);
 
@@ -72,7 +76,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 		addChildNodes(visititedNode, moves);
 		visititedNode = selection.selectChild(visititedNode);
-		int result = playthrough.returnPlaythroughResult(visititedNode);
+		double result = playthrough.returnPlaythroughResult(visititedNode);
 		// Logger.println("playthrough result: " + result);
 		updateTree(visititedNode, result);
 		// Logger.println("end mcts itterattion  (Root  times played): " + rootNode.getGamesPlayed());
@@ -84,7 +88,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
     return aNode.getGamesPlayed() == 0;
 	}
 
-	protected void updateTree(TreeNode<State, Action> visitNode, int result) {
+	protected void updateTree(TreeNode<State, Action> visitNode, double result) {
 		TreeNode<State, Action> tempNode = visitNode;
 		singleNodeUpdate(visitNode, result);
 		while (tempNode.getParent() != null) {
@@ -94,12 +98,12 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		}
 	}
 
-	protected void singleNodeUpdate(TreeNode<State, Action> visitNode, int leafPlaythroughResult) {
+	protected void singleNodeUpdate(TreeNode<State, Action> visitNode, double leafPlaythroughResult) {
 
 		if (visitNode.getNodeDepth() % 2 == 0) {
 			leafPlaythroughResult *= -1;
 		}
-		int effectiveResult = leafPlaythroughResult + 1;
+		double effectiveResult = leafPlaythroughResult + 1;
 		visitNode.setGamesPlayed(visitNode.getGamesPlayed() + 2);
 		
 

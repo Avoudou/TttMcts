@@ -14,7 +14,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	protected Rules<State> rules;
 	protected MoveGenerator<State, Action> moveGenerator;
-	protected final int noOfItterations = 5000;
+	protected final int noOfItterations = 20000;
 
 	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
@@ -118,12 +118,12 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 		ArrayList<TreeNode<State, Action>> childNodes = aNode.getChildrenList();
 		TreeNode<State, Action> tempBestChild = childNodes.get(0);
 
-		double tempCounter = 0;
-		if (tempBestChild.getGamesPlayed() != 0) {
-			tempCounter = childNodes.get(0).getGamesWon() / childNodes.get(0).getGamesPlayed();
-		} else {
-			tempCounter = 0;
-		}
+		double tempCounter = Double.NEGATIVE_INFINITY;
+		// if (tempBestChild.getGamesPlayed() != 0) {
+		// tempCounter = childNodes.get(0).getGamesWon() / childNodes.get(0).getGamesPlayed();
+		// } else {
+		// tempCounter = 0;
+		// }
 
 		for (int i = 0; i < childNodes.size(); i++) {
 

@@ -1,13 +1,13 @@
 package tests;
 
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractSearchComponents.MoveGenerator;
+import project.stratego.ai.mcts.abstractSearchComponents.Playthrough;
+import project.stratego.ai.mcts.abstractSearchComponents.Selection;
 import mctsTTTimplementation.TttNodeGenerator;
 import mctsTTTimplementation.TttRules;
 import tictactoeMain.TttGame;
 import tictactoeMain.TttLogic;
-import abstractDefinitions.TreeNode;
-import abstractSearchComponents.MoveGenerator;
-import abstractSearchComponents.Playthrough;
-import abstractSearchComponents.Selection;
 import eventPck.TttActionEvent;
 
 public class RulesTest {

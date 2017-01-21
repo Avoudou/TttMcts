@@ -1,4 +1,4 @@
-package abstractDefinitions;
+package project.stratego.ai.mcts.abstractDefinitions;
 
 public abstract class SearchState {
 

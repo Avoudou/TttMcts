@@ -1,6 +1,6 @@
 package tictactoeMain;
 
-import abstractDefinitions.SearchState;
+import project.stratego.ai.mcts.abstractDefinitions.SearchState;
 
 public class TttGame extends SearchState {
 

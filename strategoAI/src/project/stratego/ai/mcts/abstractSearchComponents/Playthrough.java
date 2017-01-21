@@ -1,10 +1,10 @@
-package abstractSearchComponents;
+package project.stratego.ai.mcts.abstractSearchComponents;
 
 import java.util.ArrayList;
 
-import abstractDefinitions.AbstractAction;
-import abstractDefinitions.SearchState;
-import abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractDefinitions.AbstractAction;
+import project.stratego.ai.mcts.abstractDefinitions.SearchState;
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
 
 public class Playthrough<State extends SearchState, Action extends AbstractAction<State>> {
 

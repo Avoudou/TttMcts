@@ -1,4 +1,4 @@
-package variusTests;
+package project.stratego.ai.mcts.logger;
 
 
 public final class Logger {

@@ -1,7 +1,7 @@
-package abstractSearchComponents;
+package project.stratego.ai.mcts.abstractSearchComponents;
 
-import abstractDefinitions.SearchState;
-import abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractDefinitions.SearchState;
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
 
 public  abstract class Rules<State extends SearchState> {
 	

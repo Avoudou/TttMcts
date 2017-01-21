@@ -1,13 +1,13 @@
-package abstractSearchComponents;
+package project.stratego.ai.mcts.abstractSearchComponents;
 
 import java.util.ArrayList;
 
-import variusTests.Logger;
-import abstractDefinitions.AbstractAction;
-import abstractDefinitions.SearchState;
-import abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractDefinitions.AbstractAction;
+import project.stratego.ai.mcts.abstractDefinitions.SearchState;
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.logger.Logger;
 
-public class MCTSperformer<State extends SearchState, Action extends AbstractAction<State>> {
+public class MCTSPerformer<State extends SearchState, Action extends AbstractAction<State>> {
 
 	protected Playthrough<State, Action> playthrough;
 	protected Selection<State, Action> selection;
@@ -16,7 +16,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 	protected MoveGenerator<State, Action> moveGenerator;
 	protected final int noOfItterations = 5000;
 
-	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
+	public MCTSPerformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
 		this.moveGenerator = moveGenerator;
 		this.playthrough = new Playthrough<State, Action>(moveGenerator, rules);
@@ -24,7 +24,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	}
 
-	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator, Playthrough<State, Action> playthrough) {
+	public MCTSPerformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator, Playthrough<State, Action> playthrough) {
 		this.rules = rules;
 		this.moveGenerator = moveGenerator;
 		this.playthrough = playthrough;

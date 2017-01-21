@@ -1,7 +1,7 @@
 package eventPck;
 
+import project.stratego.ai.mcts.abstractDefinitions.AbstractAction;
 import tictactoeMain.TttGame;
-import abstractDefinitions.AbstractAction;
 
 public class TttActionEvent extends AbstractAction<TttGame> implements TttEvent {
 

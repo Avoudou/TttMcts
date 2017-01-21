@@ -2,9 +2,9 @@ package mctsTTTimplementation;
 
 import java.util.ArrayList;
 
+import project.stratego.ai.mcts.abstractSearchComponents.MoveGenerator;
 import tictactoeMain.TttGame;
 import tictactoeMain.TttLogic;
-import abstractSearchComponents.MoveGenerator;
 import eventPck.TttActionEvent;
 
 public class TttNodeGenerator extends MoveGenerator<TttGame, TttActionEvent> {

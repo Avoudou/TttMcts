@@ -3,9 +3,9 @@ package tictactoeMain;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
 import mctsTTTimplementation.TttNodeGenerator;
 import mctsTTTimplementation.TttRules;
-import abstractDefinitions.TreeNode;
 import eventPck.TttActionEvent;
 
 public class TttMainMethod {

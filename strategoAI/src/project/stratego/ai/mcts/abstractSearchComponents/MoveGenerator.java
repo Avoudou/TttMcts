@@ -1,9 +1,9 @@
-package abstractSearchComponents;
+package project.stratego.ai.mcts.abstractSearchComponents;
 
 import java.util.ArrayList;
 
-import abstractDefinitions.AbstractAction;
-import abstractDefinitions.SearchState;
+import project.stratego.ai.mcts.abstractDefinitions.AbstractAction;
+import project.stratego.ai.mcts.abstractDefinitions.SearchState;
 
 
 

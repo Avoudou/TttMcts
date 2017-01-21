@@ -3,11 +3,11 @@ package tictactoeMain;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractSearchComponents.MCTSPerformer;
+import project.stratego.ai.mcts.logger.Logger;
 import mctsTTTimplementation.TttNodeGenerator;
 import mctsTTTimplementation.TttRules;
-import variusTests.Logger;
-import abstractDefinitions.TreeNode;
-import abstractSearchComponents.MCTSperformer;
 import eventPck.TttActionEvent;
 import eventPck.TttChangeActivePlayerEvent;
 
@@ -15,12 +15,12 @@ public class CustomKeyListener implements KeyListener {
 
 	private TttGame game;
 	private TttLogic logic;
-	private MCTSperformer<TttGame, TttActionEvent> mctsPerformer;
+	private MCTSPerformer<TttGame, TttActionEvent> mctsPerformer;
 
 	public CustomKeyListener(TttGame game, TttLogic logic) {
 		this.game = game;
 		this.logic = logic;
-		this.mctsPerformer = new MCTSperformer<TttGame, TttActionEvent>(new TttRules(logic),
+		this.mctsPerformer = new MCTSPerformer<TttGame, TttActionEvent>(new TttRules(logic),
 				new TttNodeGenerator(logic));
 	}
 

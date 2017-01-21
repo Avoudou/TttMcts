@@ -1,10 +1,10 @@
 package mctsTTTimplementation;
 
+import project.stratego.ai.mcts.abstractDefinitions.TreeNode;
+import project.stratego.ai.mcts.abstractSearchComponents.Rules;
 import tictactoeMain.Logger;
 import tictactoeMain.TttGame;
 import tictactoeMain.TttLogic;
-import abstractDefinitions.TreeNode;
-import abstractSearchComponents.Rules;
 
 public class TttRules extends Rules<TttGame> {
 

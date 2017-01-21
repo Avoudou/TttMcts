@@ -1,4 +1,4 @@
-package abstractDefinitions;
+package project.stratego.ai.mcts.abstractDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;

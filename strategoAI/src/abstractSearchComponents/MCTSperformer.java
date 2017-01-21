@@ -14,7 +14,7 @@ public class MCTSperformer<State extends SearchState, Action extends AbstractAct
 
 	protected Rules<State> rules;
 	protected MoveGenerator<State, Action> moveGenerator;
-	protected final int noOfItterations = 20000;
+	protected final int noOfItterations = 5000;
 
 	public MCTSperformer(Rules<State> rules, MoveGenerator<State, Action> moveGenerator) {
 		this.rules = rules;
